@@ -16,6 +16,13 @@ const UserList = () => {
   }, []);
 
   const handleDelete = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this user?"
+    );
+    if (!confirmed) {
+      return;
+    }
+
     const apiUrl = `http://localhost:3001/delete?id=${users[0]._id}`;
 
     try {
@@ -72,7 +79,10 @@ const UserList = () => {
             >
               Edit
             </button>
-            <button className="btn btn-sm btn-danger" onClick={handleDelete}>
+            <button
+              className="btn btn-sm btn-danger"
+              onClick={() => handleDelete(row._id)} // Pass the userId to handleDelete
+            >
               Delete
             </button>
           </div>
