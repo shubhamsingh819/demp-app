@@ -125,7 +125,7 @@ const AddUserModal = ({ show, onHide }) => {
               name="language"
               labelKey="name"
               multiple
-              options={["English", "Hinid", "Spanish", "French", "German"]} // Replace with your language options
+              options={["English", "Hinid", "Spanish", "French", "German"]}
               selected={formData.language}
               onChange={handleLanguagesChange}
               required

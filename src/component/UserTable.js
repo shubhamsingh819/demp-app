@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const UserTable = ({ users, columns }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4; // Number of items to display per page
+  const itemsPerPage = 4;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -17,7 +17,6 @@ const UserTable = ({ users, columns }) => {
     setCurrentPage(newPage);
   };
 
-  // Generate pagination items
   let items = [];
   for (
     let number = 1;

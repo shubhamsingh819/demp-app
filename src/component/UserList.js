@@ -5,15 +5,31 @@ import EditUserModel from "./EditUserModal";
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [userToEdit, setUserToEdit] = useState(null); // Add userToEdit state
+  const [userToEdit, setUserToEdit] = useState(null);
 
-  // Fetch user data (you can replace this with your API call)
   useEffect(() => {
-    fetch("http://localhost:3001/get") // Replace with your API endpoint
+    fetch("http://localhost:3001/get")
       .then((response) => response.json())
       .then((data) => setUsers(data))
       .catch((error) => console.error("Error fetching user data:", error));
   }, []);
+
+  const handleEdit = async (userId) => {
+    console.log(userId);
+    try {
+      const apiUrl = `http://localhost:3001/getUserById?id=${userId}`;
+      const response = await fetch(apiUrl);
+      if (response.ok) {
+        const userData = await response.json();
+        setUserToEdit(userData);
+        setShowEditModal(true);
+      } else {
+        console.error("Failed to fetch user data.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   const handleDelete = async () => {
     const confirmed = window.confirm(
@@ -27,9 +43,9 @@ const UserList = () => {
 
     try {
       const response = await fetch(apiUrl, {
-        method: "DELETE", // Adjust the HTTP method as needed (e.g., POST, PUT)
+        method: "DELETE",
         headers: {
-          "Content-Type": "application/json", // Set the appropriate content type
+          "Content-Type": "application/json",
         },
       });
 
@@ -91,41 +107,17 @@ const UserList = () => {
     },
   ];
 
-  // const handleEdit = () => {
-  //   console.log("hi");
-  //   setShowEditModal(true); // Open the EditUserModel
-  // };
-
-  const handleEdit = async (userId) => {
-    console.log(userId);
-    try {
-      const apiUrl = `http://localhost:3001/getUserById?id=${userId}`;
-      const response = await fetch(apiUrl);
-      if (response.ok) {
-        const userData = await response.json();
-        setUserToEdit(userData); // Set the userToEdit state with the fetched user data
-        setShowEditModal(true); // Open the EditUserModel
-      } else {
-        console.error("Failed to fetch user data.");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
   console.log(users);
 
   return (
     <div>
       <h2>User List</h2>
       <UserTable users={users} columns={columns} />
-      {/* Render the EditUserModel when showEditModal is true */}
       {showEditModal && (
         <EditUserModel
           userToEdit={userToEdit[0]}
           onClose={() => {
             setShowEditModal(false);
-            // setSelectedUser(null); // Clear the selected user data
           }}
         />
       )}

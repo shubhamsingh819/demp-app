@@ -22,17 +22,17 @@ const EditUserModal = ({ onClose, userToEdit }) => {
 
     try {
       const response = await fetch(apiUrl, {
-        method: "PATCH", // Use PATCH or PUT depending on your API
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData), // Send the updated data as JSON
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        onClose(); // Close the modal after successful editing
+        onClose();
         window.location.reload();
       } else {
         console.error("Failed to edit user.");
@@ -116,7 +116,7 @@ const EditUserModal = ({ onClose, userToEdit }) => {
               name="language"
               labelKey="name"
               multiple
-              options={["English", "Hindi", "Spanish", "French", "German"]} // Replace with your language options
+              options={["English", "Hindi", "Spanish", "French", "German"]}
               selected={formData.language}
               onChange={handleLanguagesChange}
               required
