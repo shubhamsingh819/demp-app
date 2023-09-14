@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import AddUserModal from "./component/AddUserModel";
+import UserList from "./component/UserList";
+import { Button } from "react-bootstrap";
 
-function App() {
+const App = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Button
+        style={{
+          display: "flex",
+          border: "2px solid black",
+          textAlign: "end",
+          position: "revert-layer",
+          marginLeft: "1400px",
+          marginTop: "25px",
+        }}
+        onClick={handleShowModal}
+      >
+        Add New
+      </Button>
+      <AddUserModal show={showModal} onHide={handleCloseModal} />
+      <UserList />
     </div>
   );
-}
+};
 
 export default App;
